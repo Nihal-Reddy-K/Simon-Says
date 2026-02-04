@@ -4,20 +4,22 @@ let user_seq = [];
 let btns = ["c1","c2","c3","c4"];
 
 let game_start = false;
+let acceptingInput = false;
 let level = 0;
 
 let h2 = document.querySelector("h2");
 let allBtns = document.querySelectorAll(".btn");
 
 document.addEventListener("keypress", function(){
-    if(game_start == false){
+    if(!game_start){
         console.log("The game started");
         game_start = true;
+        levelUp();
     }
-    levelUp();
 });
 
 function levelUp(){
+    acceptingInput = false;
     user_seq=[];
     level++;
     h2.innerText = `level ${level}`;
@@ -27,6 +29,10 @@ function levelUp(){
     game_seq.push(randColor);
     console.log(game_seq);
     gameFlash(randBtn);    
+    
+    setTimeout(() => {
+        acceptingInput = true;
+    }, 300);
 }
 
 function gameFlash(btn){
@@ -59,6 +65,7 @@ if(user_seq[idx] == game_seq[idx]){
 }
 
 function btnPressed(){
+    if (!game_start || !acceptingInput) return;
     let btn = this;
     userFlash(btn);
     let userColor = btn.getAttribute("id");
@@ -72,6 +79,7 @@ for(btn of allBtns){
 
 function resetDaGame(){
     game_start=false;
+    acceptingInput = false;
     user_seq=[];
     game_seq=[];
     level=0;

@@ -30,3 +30,11 @@ body{
 .c4{
     background-color: #54F9FF;
 }
+
+.flash{
+    background-color: white;
+}
+
+.user-flash{
+    background-color: green;
+}

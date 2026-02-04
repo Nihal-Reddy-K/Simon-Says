@@ -10,13 +10,16 @@ let level = 0;
 let h2 = document.querySelector("h2");
 let allBtns = document.querySelectorAll(".btn");
 
-document.addEventListener("keypress", function(){
+function startGame(){
     if(!game_start){
         console.log("The game started");
         game_start = true;
+        document.removeEventListener("keypress", startGame);
         levelUp();
     }
-});
+}
+
+document.addEventListener("keypress", startGame);
 
 function levelUp(){
     acceptingInput = false;
@@ -73,7 +76,7 @@ function btnPressed(){
     verifyDaAnswer(user_seq.length-1);
 }
 
-for(btn of allBtns){
+for(let btn of allBtns){
     btn.addEventListener("click",btnPressed);
 }
 
@@ -83,4 +86,5 @@ function resetDaGame(){
     user_seq=[];
     game_seq=[];
     level=0;
+    document.addEventListener("keypress", startGame);
 }
